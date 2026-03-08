@@ -41,8 +41,14 @@ A modern, single-page developer portfolio built with vanilla HTML, CSS, and Java
 
 ```
 ├── index.html                 # Main portfolio page
-├── favicon.svg                # Site icon
-├── headshot.jpg               # Profile photo
+├── css/
+│   └── style.css              # All styles
+├── js/
+│   └── main.js                # All scripts
+├── images/
+│   ├── favicon.svg            # Site icon
+│   ├── headshot.jpg           # Profile photo
+│   └── headshot.webp          # Optimized profile photo
 ├── James_Strohm_Resume.html   # Full resume page
 └── projects/
     ├── hero-dashboard.html    # Vue 3 admin dashboard
