@@ -2,7 +2,7 @@
 
 A modern, single-page developer portfolio built with vanilla HTML, CSS, and JavaScript. No frameworks, no build tools — just clean, performant code.
 
-**[Live Demo](#)** · **[Resume](James_Strohm_Resume.html)**
+**[Live Demo](#)** · **[Resume](James%20Strohm%20-%20Full-Stack%20Developer.pdf)**
 
 ---
 
