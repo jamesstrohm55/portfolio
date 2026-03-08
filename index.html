@@ -86,7 +86,7 @@
       top: 16px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 100;
+      z-index: 1000;
       background: var(--nav-bg);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -141,6 +141,30 @@
       color: var(--text);
       cursor: pointer;
       padding: 4px;
+      position: relative;
+      width: 28px;
+      height: 28px;
+    }
+
+    .nav-line { transition: transform 300ms ease, opacity 200ms ease; transform-origin: center; }
+    .nav-toggle.active .nav-line-1 { transform: translateY(6px) rotate(45deg); }
+    .nav-toggle.active .nav-line-2 { opacity: 0; }
+    .nav-toggle.active .nav-line-3 { transform: translateY(-6px) rotate(-45deg); }
+
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px);
+      z-index: 998;
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
+
+    .nav-overlay.show {
+      display: block;
+      opacity: 1;
     }
 
     /* --- THEME TOGGLE --- */
@@ -1255,23 +1279,45 @@
       }
 
       .nav-links {
-        display: none;
-        position: absolute;
-        top: 56px;
-        left: 0;
+        position: fixed;
+        top: 0;
         right: 0;
+        width: 280px;
+        height: 100dvh;
         flex-direction: column;
-        background: var(--nav-bg);
-        backdrop-filter: blur(16px);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 12px;
-        gap: 2px;
+        background: var(--bg);
+        border-left: 1px solid var(--border);
+        padding: 80px 24px 24px;
+        gap: 4px;
+        transform: translateX(100%);
+        transition: transform 350ms cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 999;
       }
 
-      .nav-links.open { display: flex; }
+      .nav-links.open { transform: translateX(0); }
 
-      .nav-toggle { display: block; }
+      .nav-links a {
+        font-size: 1.05rem;
+        padding: 14px 16px;
+        border-radius: 12px;
+        opacity: 0;
+        transform: translateX(20px);
+        transition: opacity 250ms ease, transform 250ms ease, color 200ms, background 200ms;
+      }
+
+      .nav-links.open a {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .nav-links.open li:nth-child(1) a { transition-delay: 80ms; }
+      .nav-links.open li:nth-child(2) a { transition-delay: 120ms; }
+      .nav-links.open li:nth-child(3) a { transition-delay: 160ms; }
+      .nav-links.open li:nth-child(4) a { transition-delay: 200ms; }
+      .nav-links.open li:nth-child(5) a { transition-delay: 240ms; }
+      .nav-links.open li:nth-child(6) a { transition-delay: 280ms; }
+
+      .nav-toggle { display: block; z-index: 1000; }
 
       .hero { padding: 100px 20px 60px; }
 
@@ -1324,9 +1370,14 @@
       <svg class="icon-moon" viewBox="0 0 24 24"><path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 01-4.4 2.26 5.403 5.403 0 01-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
     </button>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line class="nav-line nav-line-1" x1="3" y1="6" x2="21" y2="6"/>
+        <line class="nav-line nav-line-2" x1="3" y1="12" x2="21" y2="12"/>
+        <line class="nav-line nav-line-3" x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
     </button>
   </nav>
+  <div class="nav-overlay" id="navOverlay"></div>
 
   <!-- HERO -->
   <section class="hero" id="hero">
@@ -1823,9 +1874,26 @@
     // Mobile nav toggle
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
-    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    const navOverlay = document.getElementById('navOverlay');
+
+    function closeNav() {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('active');
+      navOverlay.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    function toggleNav() {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.classList.toggle('active', isOpen);
+      navOverlay.classList.toggle('show', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+
+    navToggle.addEventListener('click', toggleNav);
+    navOverlay.addEventListener('click', closeNav);
     navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => navLinks.classList.remove('open'));
+      link.addEventListener('click', closeNav);
     });
 
     // --- TYPING EFFECT ---
