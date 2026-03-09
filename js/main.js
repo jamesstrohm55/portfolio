@@ -5,6 +5,7 @@ const root = document.documentElement;
 function setTheme(theme) {
   root.setAttribute('data-theme', theme);
   localStorage.setItem('theme', theme);
+  window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
 }
 
 // Load saved theme or default to dark
@@ -59,6 +60,7 @@ const phrases = [
 ];
 
 if (!prefersReducedMotion) {
+  typingEl.textContent = '';
   let phraseIdx = 0, charIdx = 0, deleting = false, pauseTimer = 0;
 
   function typeLoop() {
@@ -93,9 +95,10 @@ if (!prefersReducedMotion) {
 
 // --- PARTICLE CONSTELLATION ---
 const canvas = document.getElementById('heroCanvas');
-const ctx = canvas.getContext('2d');
+const ctx = canvas ? canvas.getContext('2d') : null;
 let particles = [];
 let animId;
+let particlesVisible = true;
 const PARTICLE_COUNT = 60;
 const CONNECT_DIST = 120;
 
@@ -119,6 +122,7 @@ function createParticles() {
 }
 
 function drawParticles() {
+  if (!particlesVisible) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   const isLight = root.getAttribute('data-theme') === 'light';
   const dotColor = isLight ? 'rgba(3, 105, 161,' : 'rgba(14, 165, 233,';
@@ -154,10 +158,19 @@ function drawParticles() {
   animId = requestAnimationFrame(drawParticles);
 }
 
-if (!prefersReducedMotion) {
+if (!prefersReducedMotion && canvas && ctx) {
   resizeCanvas();
   createParticles();
   drawParticles();
+
+  // Pause particles when hero is off-screen to save battery
+  const heroSection = document.getElementById('hero');
+  const particleObs = new IntersectionObserver((entries) => {
+    particlesVisible = entries[0].isIntersecting;
+    if (particlesVisible && !animId) drawParticles();
+    else if (!particlesVisible) { cancelAnimationFrame(animId); animId = null; }
+  }, { threshold: 0 });
+  particleObs.observe(heroSection);
 
   let resizeTimeout;
   window.addEventListener('resize', () => {
@@ -326,8 +339,7 @@ const radarObs = new IntersectionObserver((entries) => {
 radarObs.observe(radarCanvas);
 
 // Redraw radar on theme change
-const origSetTheme = setTheme;
-setTheme = function(t) { origSetTheme(t); if (radarAnimated) drawRadar(); };
+window.addEventListener('themechange', () => { if (radarAnimated) drawRadar(); });
 
 // --- TILT CARD EFFECT ---
 if (!prefersReducedMotion) {
