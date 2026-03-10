@@ -697,20 +697,24 @@
         </div>
         <div class="project-item">
           <div class="project-header">
-            <span class="project-name">Chess Engine</span>
+            <span class="project-name">Chess Engine + AI</span>
             <a href="https://github.com/jamesstrohm55/Chess_CPP" class="project-link-btn" target="_blank">GitHub</a>
-            <span class="project-context">Personal &mdash; C++17 Chess Engine</span>
+            <span class="project-context">Personal &mdash; C++17 / SDL2</span>
           </div>
-          <div class="project-subtitle">Full chess engine with move validation, game state management, and undo system</div>
+          <div class="project-subtitle">Chess engine with AI opponent using minimax search, alpha-beta pruning, and SDL2 GUI</div>
           <ul class="exp-bullets">
-            <li>Built a chess engine from scratch with complete move validation (castling, en passant, promotion), sliding piece ray-casting attack detection, and check/checkmate logic.</li>
-            <li>Designed a move/undo system with full game state history tracking for search tree traversal, using algebraic notation parsing and 8x8 board representation.</li>
+            <li>Built a chess AI with minimax + alpha-beta pruning, quiescence search to resolve capture sequences, and a killer move heuristic for faster pruning at depth 5.</li>
+            <li>Implemented positional evaluation with king safety, pawn structure analysis (doubled/isolated/passed pawns), bishop pair bonuses, and piece-square tables.</li>
+            <li>Developed an SDL2 graphical interface with click-to-move interaction, move highlighting, live scoreboard, and real-time status messages.</li>
           </ul>
           <div class="tags">
             <span class="tag">C++17</span>
+            <span class="tag">SDL2</span>
             <span class="tag">CMake</span>
             <span class="tag">OOP</span>
             <span class="tag">Data Structures</span>
+            <span class="tag">Minimax</span>
+            <span class="tag">Alpha-Beta</span>
             <span class="tag">Algorithms</span>
           </div>
         </div>

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chess Engine — James Strohm</title>
   <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
-  <meta name="description" content="C++17 chess engine with complete move validation, ray-casting attack detection, and search tree traversal with undo system.">
+  <meta name="description" content="C++17 chess engine with AI opponent using minimax, alpha-beta pruning, quiescence search, and advanced positional evaluation. SDL2 GUI with live scoreboard.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -85,8 +85,8 @@
 
   <section class="project-hero">
     <div class="ph-label">Personal Project</div>
-    <h1 class="ph-title">Chess Engine</h1>
-    <p class="ph-subtitle">A complete chess engine built from scratch in C++17 with full move validation, attack detection, and game state management.</p>
+    <h1 class="ph-title">Chess Engine + AI</h1>
+    <p class="ph-subtitle">A chess engine and AI opponent built from scratch in C++17 with minimax search, alpha-beta pruning, quiescence search, and an SDL2 graphical interface.</p>
     <div class="ph-meta">
       <div class="ph-meta-item">
         <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
@@ -94,7 +94,7 @@
       </div>
       <div class="ph-meta-item">
         <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-        C++17 / CMake
+        C++17 / SDL2 / CMake
       </div>
     </div>
     <div class="ph-actions">
@@ -110,36 +110,45 @@
 
       <div class="content-section fade-up">
         <h2 class="cs-title">Overview</h2>
-        <p class="cs-text">This chess engine is a ground-up implementation of the complete rules of chess in modern C++17. It handles every edge case — <strong>castling rights</strong>, <strong>en passant captures</strong>, <strong>pawn promotion</strong>, <strong>check/checkmate/stalemate detection</strong> — all with an efficient board representation and move generation system.</p>
-        <p class="cs-text">The engine uses <strong>ray-casting</strong> for sliding piece attack detection and maintains a complete game state history stack, enabling move/undo operations essential for search tree traversal in AI implementations.</p>
+        <p class="cs-text">A ground-up chess engine and AI opponent in modern C++17. The engine handles every rule — <strong>castling</strong>, <strong>en passant</strong>, <strong>pawn promotion</strong>, <strong>check/checkmate/stalemate</strong> — with an efficient board representation and legal move generation system.</p>
+        <p class="cs-text">The AI uses <strong>minimax search with alpha-beta pruning</strong> to explore game trees, extended by <strong>quiescence search</strong> to resolve capture sequences and avoid tactical blunders. A <strong>killer move heuristic</strong> speeds up pruning by remembering moves that caused cutoffs. Positional evaluation includes <strong>king safety</strong>, <strong>pawn structure analysis</strong>, <strong>bishop pair bonuses</strong>, and <strong>piece-square tables</strong>.</p>
+        <p class="cs-text">The SDL2 graphical interface features click-to-move interaction, move highlighting, a promotion dialog, a <strong>live scoreboard</strong> tracking wins/losses/draws across games, and a <strong>status panel</strong> showing real-time game messages.</p>
       </div>
 
       <div class="content-section fade-up">
         <h2 class="cs-title">Key Features</h2>
         <div class="feature-grid">
           <div class="feature-card">
-            <div class="fc-title">Complete Move Validation</div>
-            <div class="fc-desc">Every move is validated against the full chess ruleset including pins, discovered checks, and illegal king moves into attacked squares.</div>
+            <div class="fc-title">AI with Alpha-Beta Search</div>
+            <div class="fc-desc">Minimax engine with alpha-beta pruning explores thousands of positions per move. Three difficulty levels from beginner-friendly to challenging (depth 5 search).</div>
           </div>
           <div class="feature-card">
-            <div class="fc-title">Ray-Cast Attack Detection</div>
-            <div class="fc-desc">Sliding pieces (bishop, rook, queen) use directional ray-casting to efficiently detect attacks along diagonals, ranks, and files.</div>
+            <div class="fc-title">Quiescence Search</div>
+            <div class="fc-desc">Extends search beyond the depth limit to resolve capture sequences, preventing the AI from misjudging exchanges and hanging pieces.</div>
           </div>
           <div class="feature-card">
-            <div class="fc-title">Special Moves</div>
-            <div class="fc-desc">Full implementation of castling (kingside/queenside with right tracking), en passant capture, and pawn promotion to any piece.</div>
+            <div class="fc-title">Advanced Evaluation</div>
+            <div class="fc-desc">Positional scoring with king safety (pawn shield, attack detection), pawn structure (doubled/isolated/passed pawns), bishop pair bonus, and piece-square tables.</div>
+          </div>
+          <div class="feature-card">
+            <div class="fc-title">Killer Move Heuristic</div>
+            <div class="fc-desc">Remembers quiet moves that caused beta cutoffs at each depth, trying them earlier in subsequent searches to dramatically speed up pruning.</div>
+          </div>
+          <div class="feature-card">
+            <div class="fc-title">SDL2 Graphical Interface</div>
+            <div class="fc-desc">Click-to-move board with legal move highlighting, promotion dialog, in-app menus for game mode and difficulty, live scoreboard, and status messages.</div>
+          </div>
+          <div class="feature-card">
+            <div class="fc-title">Complete Chess Rules</div>
+            <div class="fc-desc">Every rule implemented: castling with right tracking, en passant, pawn promotion, check/checkmate/stalemate, 50-move rule, and insufficient material draws.</div>
           </div>
           <div class="feature-card">
             <div class="fc-title">Move/Undo System</div>
-            <div class="fc-desc">Complete game state history with push/pop semantics. Every move can be undone, restoring the exact previous board state including castling rights.</div>
+            <div class="fc-desc">Full game state history with push/pop semantics. Every move can be undone, restoring castling rights, en passant targets, and half-move clock.</div>
           </div>
           <div class="feature-card">
-            <div class="fc-title">Algebraic Notation</div>
-            <div class="fc-desc">Standard algebraic notation parsing for move input (e.g., "e2e4", "Nf3") with disambiguation for ambiguous piece moves.</div>
-          </div>
-          <div class="feature-card">
-            <div class="fc-title">Game State Detection</div>
-            <div class="fc-desc">Automatic detection of check, checkmate, and stalemate conditions after every move, with proper game termination handling.</div>
+            <div class="fc-title">MVV-LVA Move Ordering</div>
+            <div class="fc-desc">Captures sorted by most-valuable-victim / least-valuable-attacker, combined with killer moves and promotion priority for optimal search ordering.</div>
           </div>
         </div>
       </div>
@@ -147,20 +156,22 @@
       <div class="content-section fade-up">
         <h2 class="cs-title">Challenges & Solutions</h2>
         <ul class="detail-list">
-          <li><strong>Pin Detection:</strong> Pieces pinned to the king can still move along the pin line. Implemented pin-ray tracking to correctly constrain movement along the pinning axis.</li>
-          <li><strong>Castling Validity:</strong> Castling requires checking that the king doesn't pass through or land on attacked squares. Required efficient attack map generation for intermediate squares.</li>
-          <li><strong>State Restoration:</strong> The undo system must perfectly restore all game state — not just piece positions, but castling rights, en passant target square, and half-move clock. Used a state snapshot stack.</li>
-          <li><strong>Performance:</strong> Move generation for all pieces on every turn needs to be fast for search tree exploration. Optimized with early termination and direction-based move generation tables.</li>
+          <li><strong>Horizon Effect:</strong> The AI would misjudge positions mid-capture-sequence, hanging pieces. Solved with quiescence search that continues evaluating captures past the depth limit until the position is "quiet."</li>
+          <li><strong>Search Performance:</strong> Depth 5 search with naive ordering was too slow. Implemented killer move heuristic and MVV-LVA capture ordering to maximize alpha-beta cutoffs, making deeper searches feasible.</li>
+          <li><strong>Evaluation Balance:</strong> Pure material counting led to passive play. Added king safety scoring (pawn shield, attacker counting), pawn structure penalties (doubled/isolated pawns), and passed pawn bonuses for more strategic play.</li>
+          <li><strong>State Restoration:</strong> The undo system must perfectly restore all game state — not just piece positions, but castling rights, en passant target, and half-move clock. Used a state snapshot stack.</li>
+          <li><strong>GUI Responsiveness:</strong> The AI blocks the main thread while searching. Rendered a "CPU is thinking..." frame before the search to keep the UI informative during computation.</li>
         </ul>
       </div>
 
       <div class="content-section fade-up">
         <h2 class="cs-title">What I Learned</h2>
         <ul class="detail-list">
-          <li>Deep understanding of <strong>OOP design patterns</strong> — polymorphic piece hierarchies, strategy pattern for move generation, and command pattern for undo.</li>
-          <li>Efficient <strong>data structure design</strong> for board representation and move encoding in constrained memory.</li>
-          <li>Building a <strong>CMake project</strong> with proper header organization, compilation units, and build configuration.</li>
-          <li>The importance of <strong>exhaustive edge case testing</strong> — chess has more corner cases than most software.</li>
+          <li>Practical understanding of <strong>game tree search algorithms</strong> — minimax, alpha-beta pruning, and quiescence search, and how move ordering dramatically affects performance.</li>
+          <li>Designing <strong>heuristic evaluation functions</strong> that balance multiple competing factors (material, position, king safety, pawn structure) into a single score.</li>
+          <li>Building a <strong>real-time GUI application</strong> with SDL2 — event-driven rendering, texture management, and managing blocking computation in a render loop.</li>
+          <li>Deep understanding of <strong>OOP design</strong> and efficient <strong>data structure design</strong> for board representation and move encoding.</li>
+          <li>Building a <strong>multi-target CMake project</strong> with proper header organization, compilation units, and external library integration via vcpkg.</li>
         </ul>
       </div>
 
@@ -168,11 +179,13 @@
         <h2 class="cs-title">Tech Stack</h2>
         <div class="tech-grid">
           <span class="tech-item">C++17</span>
+          <span class="tech-item">SDL2</span>
           <span class="tech-item">CMake</span>
-          <span class="tech-item">OOP Design Patterns</span>
+          <span class="tech-item">Minimax / Alpha-Beta</span>
+          <span class="tech-item">Quiescence Search</span>
           <span class="tech-item">Data Structures</span>
           <span class="tech-item">Algorithms</span>
-          <span class="tech-item">Memory Management</span>
+          <span class="tech-item">OOP Design</span>
         </div>
       </div>
 
