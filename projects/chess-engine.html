@@ -98,7 +98,11 @@
       </div>
     </div>
     <div class="ph-actions">
-      <a href="https://github.com/jamesstrohm55/Chess_CPP" target="_blank" rel="noopener" class="btn btn-primary">
+      <a href="chess-demo/index.html" target="_blank" rel="noopener" class="btn btn-primary">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        Play in Browser
+      </a>
+      <a href="https://github.com/jamesstrohm55/Chess_CPP" target="_blank" rel="noopener" class="btn btn-ghost">
         <svg viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2.16 2.16 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.74.74 1.2 1.74 1.2 2.84 0 4.31-2.58 5.23-5.06 5.5.45.37.82.92.82 2.02v3.03c0 .27.18.64.73.55A11 11 0 0012 1.27"/></svg>
         View on GitHub
       </a>
@@ -112,7 +116,7 @@
         <h2 class="cs-title">Overview</h2>
         <p class="cs-text">A ground-up chess engine and AI opponent in modern C++17. The engine handles every rule — <strong>castling</strong>, <strong>en passant</strong>, <strong>pawn promotion</strong>, <strong>check/checkmate/stalemate</strong> — with an efficient board representation and legal move generation system.</p>
         <p class="cs-text">The AI uses <strong>minimax search with alpha-beta pruning</strong> to explore game trees, extended by <strong>quiescence search</strong> to resolve capture sequences and avoid tactical blunders. A <strong>killer move heuristic</strong> speeds up pruning by remembering moves that caused cutoffs. Positional evaluation includes <strong>king safety</strong>, <strong>pawn structure analysis</strong>, <strong>bishop pair bonuses</strong>, and <strong>piece-square tables</strong>.</p>
-        <p class="cs-text">The SDL2 graphical interface features click-to-move interaction, move highlighting, a promotion dialog, a <strong>live scoreboard</strong> tracking wins/losses/draws across games, and a <strong>status panel</strong> showing real-time game messages.</p>
+        <p class="cs-text">The SDL2 graphical interface features click-to-move interaction, move highlighting, an <strong>undo button</strong>, a promotion dialog, a <strong>live scoreboard</strong> tracking wins/losses/draws across games, and a <strong>status panel</strong> showing real-time game messages. The entire application is compiled to <strong>WebAssembly via Emscripten</strong>, making it playable directly in the browser with no install required.</p>
       </div>
 
       <div class="content-section fade-up">
@@ -161,6 +165,7 @@
           <li><strong>Evaluation Balance:</strong> Pure material counting led to passive play. Added king safety scoring (pawn shield, attacker counting), pawn structure penalties (doubled/isolated pawns), and passed pawn bonuses for more strategic play.</li>
           <li><strong>State Restoration:</strong> The undo system must perfectly restore all game state — not just piece positions, but castling rights, en passant target, and half-move clock. Used a state snapshot stack.</li>
           <li><strong>GUI Responsiveness:</strong> The AI blocks the main thread while searching. Rendered a "CPU is thinking..." frame before the search to keep the UI informative during computation.</li>
+          <li><strong>WebAssembly Port:</strong> SDL2's blocking main loop doesn't work in the browser. Refactored into a single-frame callback using <code>emscripten_set_main_loop_arg</code>, bundled assets with <code>--preload-file</code>, and replaced system fonts with embedded TTF files.</li>
         </ul>
       </div>
 
@@ -172,6 +177,7 @@
           <li>Building a <strong>real-time GUI application</strong> with SDL2 — event-driven rendering, texture management, and managing blocking computation in a render loop.</li>
           <li>Deep understanding of <strong>OOP design</strong> and efficient <strong>data structure design</strong> for board representation and move encoding.</li>
           <li>Building a <strong>multi-target CMake project</strong> with proper header organization, compilation units, and external library integration via vcpkg.</li>
+          <li>Porting a native C++ application to <strong>WebAssembly with Emscripten</strong> — adapting the main loop, bundling assets for a virtual filesystem, and handling platform differences between desktop and browser.</li>
         </ul>
       </div>
 
@@ -186,6 +192,8 @@
           <span class="tech-item">Data Structures</span>
           <span class="tech-item">Algorithms</span>
           <span class="tech-item">OOP Design</span>
+          <span class="tech-item">WebAssembly</span>
+          <span class="tech-item">Emscripten</span>
         </div>
       </div>
 
