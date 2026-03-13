@@ -116,7 +116,7 @@
         <h2 class="cs-title">Overview</h2>
         <p class="cs-text">A ground-up chess engine and AI opponent in modern C++17. The engine handles every rule — <strong>castling</strong>, <strong>en passant</strong>, <strong>pawn promotion</strong>, <strong>check/checkmate/stalemate</strong> — with an efficient board representation and legal move generation system.</p>
         <p class="cs-text">The AI uses <strong>minimax search with alpha-beta pruning</strong> to explore game trees, extended by <strong>quiescence search</strong> to resolve capture sequences and avoid tactical blunders. A <strong>killer move heuristic</strong> speeds up pruning by remembering moves that caused cutoffs. Positional evaluation includes <strong>king safety</strong>, <strong>pawn structure analysis</strong>, <strong>bishop pair bonuses</strong>, and <strong>piece-square tables</strong>.</p>
-        <p class="cs-text">The SDL2 graphical interface features click-to-move interaction, move highlighting, an <strong>undo button</strong>, a promotion dialog, a <strong>live scoreboard</strong> tracking wins/losses/draws across games, and a <strong>status panel</strong> showing real-time game messages. The entire application is compiled to <strong>WebAssembly via Emscripten</strong>, making it playable directly in the browser with no install required.</p>
+        <p class="cs-text">The SDL2 graphical interface features click-to-move interaction, move highlighting, <strong>200ms piece slide animations</strong> with ease-out deceleration, a <strong>500ms board flip animation</strong> for perspective switching in human-vs-human games, an undo button, a promotion dialog, a <strong>live scoreboard</strong>, and a status panel. The entire application is compiled to <strong>WebAssembly via Emscripten</strong> with a custom HTML shell, loading progress bar, and <strong>mobile-responsive canvas scaling</strong> — playable on phones, tablets, and desktops with no install required.</p>
       </div>
 
       <div class="content-section fade-up">
@@ -140,7 +140,11 @@
           </div>
           <div class="feature-card">
             <div class="fc-title">SDL2 Graphical Interface</div>
-            <div class="fc-desc">Click-to-move board with legal move highlighting, promotion dialog, in-app menus for game mode and difficulty, live scoreboard, and status messages.</div>
+            <div class="fc-desc">Click-to-move board with legal move highlighting, 200ms piece slide animations, 500ms board flip animation, promotion dialog, in-app menus, live scoreboard, and status messages.</div>
+          </div>
+          <div class="feature-card">
+            <div class="fc-title">Mobile-Responsive WebAssembly</div>
+            <div class="fc-desc">Compiled to WASM via Emscripten with a custom HTML shell, loading progress bar, and responsive canvas scaling for phones, tablets, and desktops.</div>
           </div>
           <div class="feature-card">
             <div class="fc-title">Complete Chess Rules</div>

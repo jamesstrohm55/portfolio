@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(find \"C:/Users/james/OneDrive/Desktop/CBC/Apis\" \"C:/Users/james/OneDrive/Desktop/CBC/aplicativos\" \"C:/Users/james/OneDrive/Desktop/CBC/app_back\" -type f -iname \"*h3*\" 2>/dev/null | head -20)"
+      "Bash(find \"C:/Users/james/OneDrive/Desktop/CBC/Apis\" \"C:/Users/james/OneDrive/Desktop/CBC/aplicativos\" \"C:/Users/james/OneDrive/Desktop/CBC/app_back\" -type f -iname \"*h3*\" 2>/dev/null | head -20)",
+      "Bash(find /e/Chess/src /e/Chess/include -type f \\\\\\( -name \"*.h\" -o -name \"*.cpp\" \\\\\\) 2>/dev/null | sort)"
     ]
   }
 }
