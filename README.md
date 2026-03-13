@@ -15,7 +15,9 @@ A modern, single-page developer portfolio built with vanilla HTML, CSS, and Java
 - **Typing Effect** — Animated hero title cycling through roles
 - **Scroll Animations** — Fade-up reveals with staggered timing
 - **Fully Responsive** — Mobile-first layout with fluid typography
-- **Accessibility** — Respects `prefers-reduced-motion`, semantic HTML, ARIA labels
+- **Accessibility** — Skip-to-content link, `prefers-reduced-motion`, semantic HTML (`<main>`, `<dl>`), ARIA labels on all decorative SVGs
+- **SEO** — JSON-LD structured data, canonical URL, Open Graph/Twitter cards, sitemap.xml
+- **Performance** — Non-render-blocking font loading, particle canvas paused off-screen via IntersectionObserver, `<noscript>` fallback
 
 ## Sections
 
@@ -23,7 +25,7 @@ A modern, single-page developer portfolio built with vanilla HTML, CSS, and Java
 |---|---|
 | **Hero** | Animated intro with particle canvas and typing effect |
 | **About** | Background, highlights, and professional summary |
-| **Experience** | Timeline of roles at Clube Certo and Comfortly Travel |
+| **Experience** | Timeline of roles at Clube Certo, Comfortly Travel, UpwardTech, and USAF |
 | **Projects** | Featured work with dedicated detail pages |
 | **Skills** | Interactive radar chart + categorized skill pills |
 | **Education** | Degrees, certifications, and languages |
@@ -41,6 +43,8 @@ A modern, single-page developer portfolio built with vanilla HTML, CSS, and Java
 
 ```
 ├── index.html                 # Main portfolio page
+├── 404.html                   # Custom 404 page
+├── sitemap.xml                # SEO sitemap
 ├── css/
 │   └── style.css              # All styles
 ├── js/
@@ -53,6 +57,7 @@ A modern, single-page developer portfolio built with vanilla HTML, CSS, and Java
 └── projects/
     ├── hero-dashboard.html    # Vue 3 admin dashboard
     ├── billing-engine.html    # Automated billing system
+    ├── h3-geolocation.html    # H3 spatial indexing system
     ├── alfred.html            # AI voice assistant
     └── chess-engine.html      # Chess engine
 ```
