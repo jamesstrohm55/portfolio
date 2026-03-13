@@ -574,6 +574,7 @@
             <li>Integrated 5+ payment providers (Asaas, EFI, Vindi, GalaxPay) for PIX/Boleto transactions and external APIs for Firebase, telecom (IXC), and healthcare (Hinova).</li>
             <li>Developed 5 AWS SQS worker pipelines handling associate onboarding, lead management, WhatsApp messaging, and bulk Excel imports processing 50K+ rows.</li>
             <li>Implemented JWT auth with multi-role RBAC, Zod validation, real-time Socket.io, and an automated financial recovery system with multi-channel collection drivers.</li>
+            <li>Translated Uber's H3 spatial indexing library from C to TypeScript and implemented multi-resolution hexagonal geolocation indexing with k-ring queries, achieving 2-10x faster establishment search performance.</li>
             <li>Built reusable front-end component systems including a 1,100-line dynamic AutoForm generator (16+ field types), enterprise DataTable, and real-time financial dashboards.</li>
           </ul>
           <div class="tags">
@@ -651,6 +652,26 @@
             <span class="tag">SMTP</span>
             <span class="tag">WhatsApp API</span>
             <span class="tag">State Machine</span>
+          </div>
+        </div>
+
+        <div class="project-item">
+          <div class="project-header">
+            <span class="project-name">H3 Geolocation System</span>
+            <span class="project-context">Professional &mdash; Clube Certo</span>
+          </div>
+          <div class="project-subtitle">Hexagonal spatial indexing for high-performance geolocation queries</div>
+          <ul class="exp-bullets">
+            <li>Translated Uber's H3 spatial indexing library from C to JavaScript/TypeScript and implemented multi-resolution hexagonal indexing (~1.2km, ~460m, ~174m) with k-ring expansion queries for 2-10x faster establishment searches.</li>
+            <li>Built Sequelize model hooks for automatic H3 cell calculation on address create/update, dual query builders (closest address vs. full multi-address), and migration scripts for zero-downtime backfill of existing records.</li>
+          </ul>
+          <div class="tags">
+            <span class="tag">C</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">h3-js</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">Sequelize</span>
+            <span class="tag">Node.js</span>
           </div>
         </div>
 
@@ -750,7 +771,7 @@
         <div class="section-title-wrapper"><h2 class="section-title">Technical Skills</h2></div>
         <div class="skills-grid">
           <span class="skill-category">Backend</span>
-          <span class="skill-list">Python, PHP, Node.js, TypeScript, JavaScript, Express, Flask, Django, REST APIs, Microservices, JWT, OAuth2, Socket.io, Zod, Firebase, Stripe</span>
+          <span class="skill-list">Python, PHP, Node.js, TypeScript, JavaScript, Express, Flask, Django, REST APIs, Microservices, JWT, OAuth2, Socket.io, Zod, h3-js, Firebase, Stripe</span>
 
           <span class="skill-category">Frontend</span>
           <span class="skill-list">React, React Native, Vue.js, Python, Tailwind CSS, HTML5, CSS3</span>
