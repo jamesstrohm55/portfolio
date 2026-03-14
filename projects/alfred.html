@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>A.L.F.R.E.D — James Strohm</title>
   <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
-  <meta name="description" content="Voice-enabled AI desktop assistant with multi-provider LLM fallback, semantic memory, and system automation integrations.">
+  <meta name="description" content="AI assistant with FastAPI REST API, RAG-powered semantic memory, multi-provider LLM fallback, Docker, and CI/CD — deployed on Railway.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -75,6 +75,16 @@
       .project-hero { padding: 100px 20px 48px; }
       .project-content { padding: 40px 20px 60px; }
     }
+    .endpoint-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.85rem; }
+    .endpoint-table th { text-align: left; color: var(--text-dim); font-weight: 600; padding: 8px 12px; border-bottom: 2px solid var(--border); text-transform: uppercase; letter-spacing: 1px; font-size: 0.75rem; }
+    .endpoint-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+    .endpoint-table tr:hover td { color: var(--text-strong); }
+    .method { font-weight: 600; font-family: monospace; font-size: 0.8rem; }
+    .method-get { color: #22C55E; }
+    .method-post { color: #3B82F6; }
+    .method-delete { color: #EF4444; }
+    .method-ws { color: #A855F7; }
+    .path { font-family: monospace; color: var(--sky); font-size: 0.8rem; }
   </style>
 </head>
 <body>
@@ -91,7 +101,7 @@
     <div class="ph-label">Personal Project</div>
     <h1 class="ph-title">A.L.F.R.E.D</h1>
     <div class="ph-full-name">All-Knowing Logical Facilitator for Reasoned Execution of Duties</div>
-    <p class="ph-subtitle">A voice-enabled AI desktop assistant with multi-provider LLM fallback, RAG-powered semantic memory, and deep system integration — built with a JARVIS-inspired PySide6 GUI.</p>
+    <p class="ph-subtitle">AI assistant with a FastAPI REST API, RAG-powered semantic memory, multi-provider LLM fallback, and production infrastructure &mdash; Dockerized and deployed on Railway.</p>
     <div class="ph-meta">
       <div class="ph-meta-item">
         <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
@@ -99,13 +109,21 @@
       </div>
       <div class="ph-meta-item">
         <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-        Python / PySide6 / Supabase
+        Python / FastAPI / Supabase / Docker
       </div>
     </div>
     <div class="ph-actions">
       <a href="https://github.com/jamesstrohm55/ALFRED" target="_blank" rel="noopener" class="btn btn-primary">
         <svg viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2.16 2.16 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.74.74 1.2 1.74 1.2 2.84 0 4.31-2.58 5.23-5.06 5.5.45.37.82.92.82 2.02v3.03c0 .27.18.64.73.55A11 11 0 0012 1.27"/></svg>
         View on GitHub
+      </a>
+      <a href="alfred-demo/" class="btn btn-ghost">
+        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+        Talk to A.L.F.R.E.D
+      </a>
+      <a href="https://alfred-production-5c1f.up.railway.app/docs" target="_blank" rel="noopener" class="btn btn-ghost">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        API Docs
       </a>
     </div>
   </section>
@@ -115,52 +133,79 @@
 
       <div class="content-section fade-up">
         <h2 class="cs-title">Overview</h2>
-        <p class="cs-text">A.L.F.R.E.D is a desktop AI assistant inspired by J.A.R.V.I.S. — combining <strong>voice interaction</strong>, <strong>multi-provider LLM intelligence</strong>, and <strong>real-world integrations</strong> into a polished desktop application with a JARVIS-inspired dark theme and real-time audio visualization.</p>
-        <p class="cs-text">Unlike simple chatbot wrappers, A.L.F.R.E.D uses a <strong>RAG pipeline</strong> backed by <strong>Supabase + pgvector</strong> to maintain persistent semantic memory. It automatically injects relevant past context into every LLM query, and conversation history persists across sessions.</p>
+        <p class="cs-text">A.L.F.R.E.D is an AI assistant with three entry points &mdash; a <strong>voice CLI</strong>, a <strong>PySide6 desktop GUI</strong>, and a <strong>FastAPI REST API</strong> &mdash; all sharing one Supabase backend. The project demonstrates end-to-end backend engineering: API design, containerization, CI/CD, test coverage, and cloud deployment.</p>
+        <p class="cs-text">The system uses a <strong>RAG pipeline</strong> backed by <strong>Supabase + pgvector</strong> for persistent semantic memory, a <strong>multi-provider LLM fallback chain</strong> (Claude 3.5 Sonnet &rarr; GPT-4o-mini), and integrations with Google Calendar, weather APIs, file management, and system monitoring.</p>
       </div>
 
       <div class="content-section fade-up">
         <h2 class="cs-title">Architecture</h2>
         <div class="arch-flow">
-          <div class="arch-node">Voice / Text Input<br><small style="color:var(--text-dim);font-size:0.75rem">Google STT / Text Bar</small></div>
-          <span class="arch-arrow">&rarr;</span>
+          <div class="arch-node">Voice CLI<br><small style="color:var(--text-dim);font-size:0.75rem">python main.py</small></div>
+          <div class="arch-node">PySide6 GUI<br><small style="color:var(--text-dim);font-size:0.75rem">python -m ui.app</small></div>
+          <div class="arch-node" style="border-color: var(--sky);">FastAPI<br><small style="color:var(--text-dim);font-size:0.75rem">python -m api.run</small></div>
+        </div>
+        <div class="arch-flow" style="margin-top: -4px;">
+          <span class="arch-arrow">&darr;</span>
+        </div>
+        <div class="arch-flow" style="margin-top: -4px;">
           <div class="arch-node">Command Router<br><small style="color:var(--text-dim);font-size:0.75rem">Memory / Services / LLM</small></div>
           <span class="arch-arrow">&rarr;</span>
           <div class="arch-node">LLM + RAG<br><small style="color:var(--text-dim);font-size:0.75rem">Claude 3.5 &rarr; GPT-4o-mini</small></div>
-          <span class="arch-arrow">&rarr;</span>
-          <div class="arch-node">TTS Chain<br><small style="color:var(--text-dim);font-size:0.75rem">ElevenLabs &rarr; pyttsx3</small></div>
         </div>
-        <div class="arch-flow" style="margin-top: 8px;">
-          <div class="arch-node" style="border-color: var(--sky);">Supabase + pgvector<br><small style="color:var(--text-dim);font-size:0.75rem">Semantic Memory &middot; Session History &middot; OpenAI Embeddings</small></div>
+        <div class="arch-flow" style="margin-top: -4px;">
+          <span class="arch-arrow">&darr;</span>
         </div>
+        <div class="arch-flow" style="margin-top: -4px;">
+          <div class="arch-node" style="border-color: var(--sky);">Supabase + pgvector<br><small style="color:var(--text-dim);font-size:0.75rem">Semantic Memory &middot; Conversations &middot; OpenAI Embeddings</small></div>
+        </div>
+      </div>
+
+      <div class="content-section fade-up">
+        <h2 class="cs-title">REST API</h2>
+        <p class="cs-text">Thin HTTP layer over existing logic &mdash; all endpoints delegate to <strong>brain.py</strong> and <strong>memory_manager.py</strong> with zero duplication. Auto-generated <a href="https://alfred-production-5c1f.up.railway.app/docs" target="_blank" rel="noopener" style="color:var(--sky)">OpenAPI docs</a> available.</p>
+        <table class="endpoint-table">
+          <thead>
+            <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="method method-post">POST</td><td class="path">/chat</td><td>Send a message, get AI response</td></tr>
+            <tr><td class="method method-get">GET</td><td class="path">/chat/history</td><td>Retrieve conversation history</td></tr>
+            <tr><td class="method method-post">POST</td><td class="path">/memories</td><td>Store a key-value memory</td></tr>
+            <tr><td class="method method-get">GET</td><td class="path">/memories/{key}</td><td>Recall a specific memory</td></tr>
+            <tr><td class="method method-delete">DELETE</td><td class="path">/memories/{key}</td><td>Forget a memory</td></tr>
+            <tr><td class="method method-post">POST</td><td class="path">/memories/search</td><td>Semantic vector search</td></tr>
+            <tr><td class="method method-get">GET</td><td class="path">/system/health</td><td>Health check + Supabase status</td></tr>
+            <tr><td class="method method-ws">WS</td><td class="path">/ws/chat</td><td>Real-time WebSocket chat</td></tr>
+          </tbody>
+        </table>
       </div>
 
       <div class="content-section fade-up">
         <h2 class="cs-title">Key Features</h2>
         <div class="feature-grid">
           <div class="feature-card">
+            <div class="fc-title">FastAPI REST + WebSocket</div>
+            <div class="fc-desc">9 endpoints with Pydantic validation, auto-generated Swagger docs, CORS middleware, and a WebSocket endpoint for real-time chat. Deployed on Railway via Docker.</div>
+          </div>
+          <div class="feature-card">
             <div class="fc-title">Multi-Provider LLM + RAG</div>
-            <div class="fc-desc">Claude 3.5 Sonnet (via OpenRouter) with GPT-4o-mini fallback. RAG pipeline injects semantically relevant memories and recent facts (top 5, 0.5 threshold) into every query.</div>
+            <div class="fc-desc">Claude 3.5 Sonnet (via OpenRouter) with GPT-4o-mini fallback. RAG pipeline injects semantically relevant memories and recent facts into every query via pgvector.</div>
           </div>
           <div class="feature-card">
             <div class="fc-title">Semantic Memory</div>
-            <div class="fc-desc">Supabase PostgreSQL + pgvector for cloud-backed vector search with OpenAI text-embedding-3-small. Supports remember, recall, forget, and semantic search commands with auto-categorization.</div>
+            <div class="fc-desc">Supabase PostgreSQL + pgvector for cloud-backed vector search with OpenAI text-embedding-3-small. Full CRUD: remember, recall, forget, list, and semantic search.</div>
           </div>
           <div class="feature-card">
-            <div class="fc-title">Voice Interface</div>
-            <div class="fc-desc">Google Speech Recognition input with a triple TTS fallback chain: ElevenLabs (eleven_turbo_v2_5) &rarr; pyttsx3 (offline) &rarr; text-only. Lazy-initialized for fast startup.</div>
+            <div class="fc-title">Production Infrastructure</div>
+            <div class="fc-desc">Docker containerization, GitHub Actions CI (ruff lint + pytest), pinned dependencies, pyproject.toml packaging, and 65+ unit tests with full mock coverage.</div>
           </div>
           <div class="feature-card">
-            <div class="fc-title">JARVIS-Inspired GUI</div>
-            <div class="fc-desc">Frameless PySide6 window with dual waveform visualization (input cyan, output green), system dashboard with 60s history charts, quick action tiles, and markdown chat bubbles.</div>
+            <div class="fc-title">Voice Interface + GUI</div>
+            <div class="fc-desc">Google STT input with ElevenLabs/pyttsx3 TTS fallback chain. PySide6 GUI with dual waveform visualization, system dashboard, and JARVIS-inspired dark theme.</div>
           </div>
           <div class="feature-card">
             <div class="fc-title">Service Integrations</div>
-            <div class="fc-desc">Google Calendar (natural language scheduling via dateparser), OpenWeather with location/weather caching, secure file manager, and system monitoring (CPU/RAM/Disk with live charts).</div>
-          </div>
-          <div class="feature-card">
-            <div class="fc-title">System Automation</div>
-            <div class="fc-desc">Launch VS Code, open browser, play music, lock workstation, get time — all via fuzzy-matched voice commands (difflib, 0.5 cutoff) with full command logging.</div>
+            <div class="fc-desc">Google Calendar (natural language scheduling), OpenWeather with caching, secure file manager with path validation, and real-time system monitoring.</div>
           </div>
         </div>
       </div>
@@ -168,11 +213,11 @@
       <div class="content-section fade-up">
         <h2 class="cs-title">Challenges & Solutions</h2>
         <ul class="detail-list">
-          <li><strong>UI Responsiveness:</strong> LLM queries and TTS block the main thread. Used QRunnable thread pool workers and global Qt signals to keep the GUI responsive during command processing.</li>
+          <li><strong>API Without Duplication:</strong> The FastAPI layer needed to expose existing logic without rewriting it. Used synchronous handlers (plain <code>def</code>) so FastAPI auto-offloads to a thread pool, matching the existing sync codebase with zero refactoring.</li>
+          <li><strong>Import Isolation:</strong> Desktop dependencies (PySide6, PyAudio, numpy) can't install in a slim Docker container. Moved GUI/voice imports to lazy loading so the API server starts cleanly with only backend dependencies.</li>
           <li><strong>Memory Relevance:</strong> Not all past context is useful. Tuned pgvector similarity threshold (0.5) and capped RAG context at ~500 tokens, combining semantic search with the 5 most recently updated facts.</li>
           <li><strong>Provider Reliability:</strong> API outages are unpredictable. Built a fallback chain (Claude &rarr; GPT-4o-mini) and triple TTS fallback (ElevenLabs &rarr; pyttsx3 &rarr; text-only) for resilience.</li>
-          <li><strong>Session Continuity:</strong> Conversation history needed to persist across restarts. Implemented Supabase-backed session tracking with UUID session IDs and automatic fallback to the previous session's context.</li>
-          <li><strong>File Security:</strong> File operations needed guardrails. Added path validation against system directories (System32, ProgramFiles, etc.) and directory traversal prevention.</li>
+          <li><strong>CI Without Secrets:</strong> Tests needed to run without API keys. All external calls are mocked, and CI injects dummy environment variables so module-level client initialization succeeds.</li>
         </ul>
       </div>
 
@@ -180,17 +225,19 @@
         <h2 class="cs-title">Tech Stack</h2>
         <div class="tech-grid">
           <span class="tech-item">Python</span>
-          <span class="tech-item">PySide6</span>
+          <span class="tech-item">FastAPI</span>
           <span class="tech-item">Supabase</span>
           <span class="tech-item">pgvector</span>
+          <span class="tech-item">Docker</span>
+          <span class="tech-item">GitHub Actions</span>
           <span class="tech-item">OpenRouter (Claude 3.5)</span>
           <span class="tech-item">OpenAI API</span>
+          <span class="tech-item">PySide6</span>
           <span class="tech-item">ElevenLabs</span>
           <span class="tech-item">Google Calendar API</span>
-          <span class="tech-item">pyqtgraph</span>
-          <span class="tech-item">psutil</span>
-          <span class="tech-item">dateparser</span>
+          <span class="tech-item">Railway</span>
           <span class="tech-item">pytest</span>
+          <span class="tech-item">ruff</span>
         </div>
       </div>
 

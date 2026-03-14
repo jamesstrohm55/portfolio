@@ -701,22 +701,24 @@
           <div class="project-header">
             <span class="project-name">A.L.F.R.E.D</span>
             <a href="https://github.com/jamesstrohm55/ALFRED" class="project-link-btn" target="_blank">GitHub</a>
-            <span class="project-context">Personal &mdash; Voice-Enabled AI Assistant</span>
+            <a href="https://alfred-production-5c1f.up.railway.app/docs" class="project-link-btn" target="_blank">Live API</a>
+            <span class="project-context">Personal &mdash; AI Assistant + REST API</span>
           </div>
           <div class="project-subtitle">All-Knowing Logical Facilitator for Reasoned Execution of Duties</div>
           <ul class="exp-bullets">
-            <li>Built a voice-enabled desktop assistant with Claude 3.5 Sonnet (OpenRouter) and GPT-4o-mini fallback, a RAG pipeline injecting semantic memories into LLM context, and a triple TTS fallback chain (ElevenLabs, pyttsx3, text-only).</li>
-            <li>Designed a JARVIS-inspired PySide6 GUI with dual waveform visualization, system dashboard (CPU/RAM/Disk live charts), quick action tiles, markdown chat bubbles, and threaded command processing via QRunnable workers.</li>
-            <li>Implemented cloud-backed semantic memory with Supabase + pgvector (OpenAI embeddings), persistent session history, and integrations for Google Calendar, weather, file management, and system automation.</li>
+            <li>Built a FastAPI REST API (9 endpoints + WebSocket) with Pydantic validation and auto-generated OpenAPI docs, Dockerized and deployed on Railway. Three entry points (voice CLI, PySide6 GUI, HTTP API) sharing one Supabase backend.</li>
+            <li>Implemented a RAG pipeline with Supabase + pgvector for semantic memory search (OpenAI embeddings), multi-provider LLM fallback chain (Claude 3.5 Sonnet &rarr; GPT-4o-mini &rarr; free tier), and persistent conversation history.</li>
+            <li>Set up production infrastructure: GitHub Actions CI (ruff lint + pytest), Docker containerization, pinned dependencies, and 65+ unit tests with full mock coverage.</li>
           </ul>
           <div class="tags">
             <span class="tag">Python</span>
-            <span class="tag">PySide6</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Docker</span>
             <span class="tag">Supabase</span>
             <span class="tag">pgvector</span>
-            <span class="tag">OpenRouter</span>
-            <span class="tag">OpenAI</span>
-            <span class="tag">ElevenLabs</span>
+            <span class="tag">CI/CD</span>
+            <span class="tag">Railway</span>
+            <span class="tag">pytest</span>
           </div>
         </div>
         <div class="project-item">
@@ -774,13 +776,13 @@
         <div class="section-title-wrapper"><h2 class="section-title">Technical Skills</h2></div>
         <div class="skills-grid">
           <span class="skill-category">Backend</span>
-          <span class="skill-list">Python, PHP, Node.js, TypeScript, JavaScript, Express, Flask, Django, REST APIs, Microservices, JWT, OAuth2, Socket.io, Zod, h3-js, Firebase, Stripe</span>
+          <span class="skill-list">Python, PHP, Node.js, TypeScript, JavaScript, Express, Flask, FastAPI, Django, REST APIs, Microservices, JWT, OAuth2, Socket.io, Zod, h3-js, Firebase, Stripe</span>
 
           <span class="skill-category">Frontend</span>
           <span class="skill-list">React, React Native, Vue.js, Python, Tailwind CSS, HTML5, CSS3</span>
 
           <span class="skill-category">Database</span>
-          <span class="skill-list">MySQL, PostgreSQL, MongoDB, Sequelize, Redis</span>
+          <span class="skill-list">MySQL, PostgreSQL, Supabase, MongoDB, Sequelize, Redis</span>
 
           <span class="skill-category">Cloud & DevOps</span>
           <span class="skill-list">AWS EC2, S3, SQS, CloudWatch, Docker, Git, GitHub, GitHub Actions, CI/CD, Linux</span>

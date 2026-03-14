@@ -59,7 +59,11 @@ A modern, single-page developer portfolio built with vanilla HTML, CSS, and Java
     ├── billing-engine.html    # Automated billing system
     ├── h3-geolocation.html    # H3 spatial indexing system
     ├── alfred.html            # AI voice assistant
-    └── chess-engine.html      # Chess engine
+    ├── alfred-demo/           # Live A.L.F.R.E.D chat demo
+    │   └── index.html
+    ├── chess-engine.html      # Chess engine
+    └── chess-demo/            # Playable chess demo
+        └── index.html
 ```
 
 ## Getting Started
