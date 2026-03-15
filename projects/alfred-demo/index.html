@@ -422,6 +422,18 @@
     // Voices load async in some browsers
     if (synth) synth.onvoiceschanged = () => {};
 
+    // Mobile browsers require a user gesture to unlock speech synthesis
+    let ttsUnlocked = false;
+    function unlockTTS() {
+      if (ttsUnlocked || !synth) return;
+      const silence = new SpeechSynthesisUtterance('');
+      silence.volume = 0;
+      synth.speak(silence);
+      ttsUnlocked = true;
+    }
+    document.addEventListener('click', unlockTTS, { once: true });
+    document.addEventListener('touchstart', unlockTTS, { once: true });
+
     function toggleVoice() {
       voiceEnabled = !voiceEnabled;
       voiceToggle.classList.toggle('active', voiceEnabled);
@@ -455,9 +467,10 @@
       if (welcome) welcome.style.display = 'none';
       const div = document.createElement('div');
       div.className = `msg ${role}`;
+      const content = role === 'assistant' ? renderMarkdown(text) : escapeHtml(text);
       div.innerHTML = `
         <div class="msg-label">${role === 'user' ? 'You' : 'A.L.F.R.E.D'}</div>
-        <div class="msg-bubble">${escapeHtml(text)}</div>
+        <div class="msg-bubble">${content}</div>
         <div class="msg-time">${timeStr()}</div>
       `;
       chatArea.appendChild(div);
@@ -486,6 +499,21 @@
       const d = document.createElement('div');
       d.textContent = s;
       return d.innerHTML;
+    }
+
+    function renderMarkdown(text) {
+      let html = escapeHtml(text);
+      // Bold: **text** or __text__
+      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
+      // Italic: *text* or _text_
+      html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+      html = html.replace(/(?<!\w)_(.+?)_(?!\w)/g, '<em>$1</em>');
+      // Inline code: `text`
+      html = html.replace(/`(.+?)`/g, '<code style="background:rgba(14,165,233,0.15);padding:1px 5px;border-radius:4px;font-size:0.85em">$1</code>');
+      // Line breaks
+      html = html.replace(/\n/g, '<br>');
+      return html;
     }
 
     async function send() {
