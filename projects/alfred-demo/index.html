@@ -314,6 +314,8 @@
 
   <script>
     const API = 'https://alfred-production-5c1f.up.railway.app';
+    const API_KEY = 'alfred-demo-2026';
+    const HEADERS = { 'Content-Type': 'application/json', 'X-API-Key': API_KEY };
     const chatArea = document.getElementById('chatArea');
     const msgInput = document.getElementById('msgInput');
     const sendBtn  = document.getElementById('sendBtn');
@@ -326,6 +328,7 @@
     let voiceEnabled = true;
     let listening = false;
     let recognition = null;
+    let sessionId = null;  // Persists across messages within a visit
 
     // ── Speech Recognition (STT) ──────────────────────────────────────────────
 
@@ -528,12 +531,15 @@
       showTyping();
 
       try {
+        const payload = { message: text };
+        if (sessionId) payload.session_id = sessionId;
         const r = await fetch(`${API}/chat`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: text })
+          headers: HEADERS,
+          body: JSON.stringify(payload)
         });
         const d = await r.json();
+        sessionId = d.session_id;  // Persist for subsequent messages
         removeTyping();
         addMsg('assistant', d.response);
         speak(d.response);
