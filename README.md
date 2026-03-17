@@ -26,10 +26,11 @@ A modern, single-page developer portfolio built with vanilla HTML, CSS, and Java
 | **Hero** | Animated intro with particle canvas and typing effect |
 | **About** | Background, highlights, and professional summary |
 | **Experience** | Timeline of roles at Clube Certo, Comfortly Travel, UpwardTech, and USAF |
+| **Testimonial** | CTO recommendation quote with downloadable letter |
 | **Projects** | Featured work with dedicated detail pages |
 | **Skills** | Interactive radar chart + categorized skill pills |
 | **Education** | Degrees, certifications, and languages |
-| **Contact** | Email, LinkedIn, GitHub, and phone |
+| **Contact** | Email, LinkedIn, GitHub, WhatsApp, and phone |
 
 ## Tech Stack
 
