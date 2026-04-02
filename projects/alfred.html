@@ -175,7 +175,7 @@
             <tr><td class="method method-delete">DELETE</td><td class="path">/memories/{key}</td><td>Forget a memory</td></tr>
             <tr><td class="method method-post">POST</td><td class="path">/memories/search</td><td>Semantic vector search</td></tr>
             <tr><td class="method method-get">GET</td><td class="path">/system/health</td><td>Health check + Supabase status</td></tr>
-            <tr><td class="method method-ws">WS</td><td class="path">/ws/chat</td><td>Real-time WebSocket chat</td></tr>
+            <tr><td class="method method-ws">WS</td><td class="path">/ws/chat</td><td>Real-time WebSocket chat with auth handshake</td></tr>
           </tbody>
         </table>
       </div>
@@ -185,7 +185,7 @@
         <div class="feature-grid">
           <div class="feature-card">
             <div class="fc-title">FastAPI REST + WebSocket</div>
-            <div class="fc-desc">9 endpoints with Pydantic validation, auto-generated Swagger docs, CORS middleware, and a WebSocket endpoint for real-time chat. Deployed on Railway via Docker.</div>
+            <div class="fc-desc">9 endpoints with Pydantic validation, auto-generated Swagger docs, CORS middleware, and a WebSocket endpoint for real-time chat authenticated via an initial auth message instead of URL query params. Deployed on Railway via Docker.</div>
           </div>
           <div class="feature-card">
             <div class="fc-title">Multi-Provider LLM + RAG</div>
@@ -205,7 +205,7 @@
           </div>
           <div class="feature-card">
             <div class="fc-title">Service Integrations</div>
-            <div class="fc-desc">Google Calendar (natural language scheduling), OpenWeather with caching, secure file manager with path validation, and real-time system monitoring.</div>
+            <div class="fc-desc">Google Calendar (natural language scheduling), OpenWeather with caching, a secure file manager with path validation and explicit delete confirmation, and real-time system monitoring.</div>
           </div>
         </div>
       </div>
