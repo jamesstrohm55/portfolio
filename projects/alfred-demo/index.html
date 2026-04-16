@@ -530,28 +530,78 @@
       addMsg('user', text);
       showTyping();
 
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 30000);
+
       try {
         const payload = { message: text };
         if (sessionId) payload.session_id = sessionId;
-        const r = await fetch(`${API}/chat`, {
+
+        const r = await fetch(`${API}/chat/stream`, {
           method: 'POST',
           headers: HEADERS,
-          body: JSON.stringify(payload)
+          body: JSON.stringify(payload),
+          signal: controller.signal
         });
-        const d = await r.json();
-        sessionId = d.session_id;  // Persist for subsequent messages
-        removeTyping();
-        addMsg('assistant', d.response);
-        speak(d.response);
+
+        if (!r.ok || !r.body) throw new Error(`HTTP ${r.status}`);
+
+        const reader = r.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        let fullContent = '';
+        let bubble = null;
+
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop(); // keep incomplete line
+
+          for (const line of lines) {
+            if (!line.startsWith('data: ')) continue;
+            let evt;
+            try { evt = JSON.parse(line.slice(6)); } catch { continue; }
+
+            if (evt.type === 'session') {
+              sessionId = evt.session_id;
+              removeTyping();
+              if (welcome) welcome.style.display = 'none';
+              const div = document.createElement('div');
+              div.className = 'msg assistant';
+              div.innerHTML = `
+                <div class="msg-label">A.L.F.R.E.D</div>
+                <div class="msg-bubble"></div>
+                <div class="msg-time">${timeStr()}</div>
+              `;
+              chatArea.appendChild(div);
+              chatArea.scrollTop = chatArea.scrollHeight;
+              bubble = div.querySelector('.msg-bubble');
+            } else if (evt.type === 'token' && bubble) {
+              fullContent += evt.content;
+              bubble.textContent = fullContent;
+              chatArea.scrollTop = chatArea.scrollHeight;
+            } else if (evt.type === 'done') {
+              if (bubble) bubble.innerHTML = renderMarkdown(fullContent);
+              speak(fullContent);
+            }
+          }
+        }
       } catch (e) {
         removeTyping();
-        addMsg('assistant', 'Sorry, I could not reach the server. Please try again later.');
+        const msg = e.name === 'AbortError'
+          ? 'Request timed out. Please try again.'
+          : 'Sorry, I could not reach the server. Please try again later.';
+        addMsg('assistant', msg);
+      } finally {
+        clearTimeout(timeout);
+        sending = false;
+        sendBtn.disabled = false;
+        micBtn.disabled = false;
+        msgInput.focus();
       }
-
-      sending = false;
-      sendBtn.disabled = false;
-      micBtn.disabled = false;
-      msgInput.focus();
     }
 
     function sendSuggestion(btn) {
