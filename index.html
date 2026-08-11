@@ -42,7 +42,11 @@
     "@type": "Person",
     "name": "James Strohm",
     "url": "https://jamesstrohm.dev",
-    "jobTitle": "Full-Stack Developer",
+    "jobTitle": "Full Stack Engineer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Ninjio"
+    },
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Belo Horizonte",
@@ -199,8 +203,12 @@
             <span class="tl-date">2026 — Present</span>
           </div>
           <ul class="tl-bullets">
-            <li>Building features on Nemo, a multi-tenant cybersecurity SaaS platform serving enterprise clients with phishing simulations, training campaigns, and employee risk analytics across strictly isolated tenant architecture.</li>
-            <li>Leading development of Ninjio Sensei AI, an AI-powered learning assistant designed to personalize security awareness training at scale across enterprise deployments.</li>
+            <li>Lead engineer on Ninjio Sensei AI, a generative-AI platform that turns a prompt or uploaded document into a fully narrated, interactive security course — delivered 95 tickets across a new 14K-line Django app (20 service modules, 36 migrations) and a 5K-line React/TypeScript authoring wizard, shipped to production in both US and EU regions.</li>
+            <li>Architected the generation pipeline end to end: document text extraction, opt-in web-search enrichment, and slide synthesis on OpenAI with an Anthropic Claude fallback, composing decks from 19 layout templates with assessments grounded in the taught content.</li>
+            <li>Integrated ElevenLabs text-to-speech for per-character narration with word-level caption synchronization, per-character voice tuning, randomized narrator pools, and in-app upload, recording, and trimming of custom audio.</li>
+            <li>Shipped multi-format delivery — self-contained SCORM packages for external LMS platforms, standalone HTML, and MP4 video export rendered through headless Chromium on a dedicated Celery queue.</li>
+            <li>Built Remix (localize a published module into any of 8 languages, edit in place, or fork to a new draft) plus per-customer branding, usage-token metering, and feature flags resolved through the tenant hierarchy under strict multi-tenant data isolation.</li>
+            <li>Backed the platform with 985 automated tests and owned release engineering: production ECS deployments, CI guards on the migration graph, and root-cause diagnosis of cross-region deployment failures.</li>
           </ul>
           <div class="tl-tags">
             <span class="tl-tag">Python</span>
@@ -210,6 +218,9 @@
             <span class="tl-tag">MySQL</span>
             <span class="tl-tag">Celery</span>
             <span class="tl-tag">Redis</span>
+            <span class="tl-tag">OpenAI</span>
+            <span class="tl-tag">AWS ECS</span>
+            <span class="tl-tag">Docker</span>
           </div>
         </div>
 
@@ -497,6 +508,9 @@
               <span class="skill-pill">OAuth2</span>
               <span class="skill-pill">Socket.io</span>
               <span class="skill-pill">Zod</span>
+              <span class="skill-pill">Celery</span>
+              <span class="skill-pill">OpenAI API</span>
+              <span class="skill-pill">Anthropic Claude</span>
             </div>
           </div>
 
@@ -528,6 +542,8 @@
             <div class="skill-card-title">Cloud & DevOps</div>
             <div class="skill-items">
               <span class="skill-pill">AWS EC2</span>
+              <span class="skill-pill">ECS</span>
+              <span class="skill-pill">ECR</span>
               <span class="skill-pill">S3</span>
               <span class="skill-pill">SQS</span>
               <span class="skill-pill">CloudWatch</span>
@@ -543,6 +559,8 @@
             <div class="skill-items">
               <span class="skill-pill">Jest</span>
               <span class="skill-pill">Mocha</span>
+              <span class="skill-pill">pytest</span>
+              <span class="skill-pill">Vitest</span>
               <span class="skill-pill">Agile</span>
               <span class="skill-pill">Scrum</span>
               <span class="skill-pill">Kanban</span>

@@ -570,8 +570,12 @@
           </div>
           <div class="exp-role">Full Stack Engineer</div>
           <ul class="exp-bullets">
-            <li>Building features on Nemo, a multi-tenant cybersecurity SaaS platform serving enterprise clients with phishing simulations, training campaigns, and employee risk analytics across strict tenant-isolated data architecture.</li>
-            <li>Leading development of Ninjio Sensei AI, an AI-powered learning assistant designed to personalize security awareness training at scale across enterprise deployments.</li>
+            <li>Lead engineer on Ninjio Sensei AI, a generative-AI platform that turns a prompt or uploaded document into a fully narrated, interactive security course &mdash; delivered 95 tickets across a new 14K-line Django app (20 service modules, 36 migrations) and a 5K-line React/TypeScript authoring wizard, shipped to production in both US and EU regions.</li>
+            <li>Architected the generation pipeline end to end: document text extraction, opt-in web-search enrichment, and slide synthesis on OpenAI with an Anthropic Claude fallback, composing decks from 19 layout templates with assessments grounded in the taught content.</li>
+            <li>Integrated ElevenLabs text-to-speech for per-character narration with word-level caption synchronization, per-character voice tuning, randomized narrator pools, and in-app upload, recording, and trimming of custom audio.</li>
+            <li>Shipped multi-format delivery &mdash; self-contained SCORM packages for external LMS platforms, standalone HTML, and MP4 video export rendered through headless Chromium on a dedicated Celery queue.</li>
+            <li>Built Remix (localize a published module into any of 8 languages, edit in place, or fork to a new draft) plus per-customer branding, usage-token metering, and feature flags resolved through the tenant hierarchy under strict multi-tenant data isolation.</li>
+            <li>Backed the platform with 985 automated tests and owned release engineering: production ECS deployments, CI guards on the migration graph, and root-cause diagnosis of cross-region deployment failures.</li>
           </ul>
           <div class="tags">
             <span class="tag">Python</span>
@@ -581,6 +585,9 @@
             <span class="tag">MySQL</span>
             <span class="tag">Celery</span>
             <span class="tag">Redis</span>
+            <span class="tag">OpenAI</span>
+            <span class="tag">AWS ECS</span>
+            <span class="tag">Docker</span>
           </div>
         </div>
 
@@ -801,7 +808,10 @@
         <div class="section-title-wrapper"><h2 class="section-title">Technical Skills</h2></div>
         <div class="skills-grid">
           <span class="skill-category">Backend</span>
-          <span class="skill-list">Python, PHP, Node.js, TypeScript, JavaScript, Express, Flask, FastAPI, Django, REST APIs, Microservices, JWT, OAuth2, Socket.io, Zod, h3-js, Firebase, Stripe</span>
+          <span class="skill-list">Python, PHP, Node.js, TypeScript, JavaScript, Express, Flask, FastAPI, Django, Celery, REST APIs, Microservices, JWT, OAuth2, Socket.io, Zod, h3-js, Firebase, Stripe</span>
+
+          <span class="skill-category">AI &amp; Integrations</span>
+          <span class="skill-list">OpenAI API, Anthropic Claude, LLM prompt engineering, RAG, pgvector, ElevenLabs TTS, SCORM</span>
 
           <span class="skill-category">Frontend</span>
           <span class="skill-list">React, React Native, Vue.js, Python, Tailwind CSS, HTML5, CSS3</span>
@@ -810,10 +820,10 @@
           <span class="skill-list">MySQL, PostgreSQL, Supabase, MongoDB, Sequelize, Redis</span>
 
           <span class="skill-category">Cloud & DevOps</span>
-          <span class="skill-list">AWS EC2, S3, SQS, CloudWatch, Docker, Git, GitHub, GitHub Actions, CI/CD, Linux</span>
+          <span class="skill-list">AWS EC2, ECS, ECR, S3, SQS, CloudWatch, Docker, Git, GitHub, Bitbucket Pipelines, GitHub Actions, CI/CD, Linux</span>
 
           <span class="skill-category">Testing & Methods</span>
-          <span class="skill-list">Jest, Mocha, Agile, Scrum, Kanban, Code Review</span>
+          <span class="skill-list">Jest, Mocha, pytest, Vitest, Agile, Scrum, Kanban, Code Review</span>
 
           <span class="skill-category">Other</span>
           <span class="skill-list">C, C++, SDL2, CMake</span>
