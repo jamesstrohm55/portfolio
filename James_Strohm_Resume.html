@@ -576,6 +576,8 @@
             <li>Shipped multi-format delivery &mdash; self-contained SCORM packages for external LMS platforms, standalone HTML, and MP4 video export rendered through headless Chromium on a dedicated Celery queue.</li>
             <li>Built Remix (localize a published module into any of 8 languages, edit in place, or fork to a new draft) plus per-customer branding, usage-token metering, and feature flags resolved through the tenant hierarchy under strict multi-tenant data isolation.</li>
             <li>Backed the platform with 985 automated tests and owned release engineering: production ECS deployments, CI guards on the migration graph, and root-cause diagnosis of cross-region deployment failures.</li>
+            <li>Built the AI Phishing Template Generator, an LLM-powered engine that produces realistic single and bulk-batch phishing email templates across configurable attack styles, emotional triggers, and difficulty tiers, with brand-accurate styling sourced from real company data for security-awareness simulations.</li>
+            <li>Designed a versioned, feature-flagged prompt architecture with a hard-refusal retry loop and a secondary LLM &ldquo;steering fidelity&rdquo; judge to catch output that silently drifted from operator-supplied scenario steering, instrumented end to end with Langfuse tracing for full prompt visibility and root-cause debugging.</li>
           </ul>
           <div class="tags">
             <span class="tag">Python</span>
@@ -586,6 +588,7 @@
             <span class="tag">Celery</span>
             <span class="tag">Redis</span>
             <span class="tag">OpenAI</span>
+            <span class="tag">Langfuse</span>
             <span class="tag">AWS ECS</span>
             <span class="tag">Docker</span>
           </div>
